@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <string.h>
 
 int main(int argc, char* argv[]) {
@@ -19,7 +20,7 @@ int main(int argc, char* argv[]) {
     ssize_t read;
 
     /* Helper flag to mark leading tokens */
-    char is_leading_token = 1;
+    bool is_leading_token = true;
 
     /* Read lines from file stream */
     while ((read = getline(&cur_line, &linecap, inputfp)) != -1) {
@@ -35,14 +36,14 @@ int main(int argc, char* argv[]) {
             }
 
             /* Unset the leading token flag after getting the first token */
-            is_leading_token = 0;
+            is_leading_token = false;
 
             /* Send this token to the parser */
             printf("%s", token); // TODO: Replace this with a parsing function
         }
 
         /* When finished with a line, reset the leading token flag */
-        is_leading_token = 1;
+        is_leading_token = true;
     }
 
     /* Cleanup */
